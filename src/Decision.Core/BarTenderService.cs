@@ -38,7 +38,7 @@ namespace Decision.Core
             {
                 return "Orange juice";
             }
-            else if (!new OlderThanEighteen().IsSatisfied(person) && !new GenderIsMale().IsSatisfied(person) && !new HasADHD().IsSatisfied(person))
+            else if (!new OlderThanEighteen().And(new GenderIsMale()).And(new HasADHD()).IsSatisfied(person))
             {
                 return "Fanta";
             }
