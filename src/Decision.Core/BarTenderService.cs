@@ -21,20 +21,20 @@ namespace Decision.Core
                 }
                 else
                 {
-                    if (YoungerThanThirty.Satisfied(person))
+                    if (OlderThanThirty.Satisfied(person))
                     {
-                        return "Wine";
+                         if (OlderThanFifty.Satisfied(person))
+                         {
+                             return "Wine";
+                         }
+                         else
+                         {
+                             return "Beer";
+                         }                   
                     }
                     else
                     {
-                        if (OlderThanFifty.Satisfied(person))
-                        {
-                            return "Wine";
-                        }
-                        else
-                        {
-                            return "Beer";
-                        }
+                        return "Wine";
                     }
                 }
             }

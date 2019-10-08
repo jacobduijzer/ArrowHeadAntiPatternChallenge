@@ -24,7 +24,7 @@ namespace Decision.UnitTests
         [InlineData(Gender.Female, 10, false, "Fanta")]
         [InlineData(Gender.Female, 10, true, "Orange juice")]
         [InlineData(Gender.Female, 18, false, "Wine")]
-        [InlineData(Gender.Female, 30, false, "Beer")]
+        [InlineData(Gender.Female, 31, false, "Beer")]
         [InlineData(Gender.Female, 55, false, "Wine")]
         public void ServeProperDrink(Gender gender, int age, bool hasAdhd, string expectedDrink) =>
             _service.ServeDrink(new Person { Age = age, Gender = gender, HasADHD = hasAdhd })
