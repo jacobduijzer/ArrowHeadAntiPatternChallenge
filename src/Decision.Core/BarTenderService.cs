@@ -1,68 +1,21 @@
-using Decision.Core.Specifications;
+using System.Collections.Generic;
 
 namespace Decision.Core
 {
     public class BarTenderService
     {
+        private readonly ICollection<DrinkingRule> _drinkingRules;
+
+        public BarTenderService(ICollection<DrinkingRule> drinkingRules) =>
+            _drinkingRules = drinkingRules;
+
         public string ServeDrink(Person person)
         {
-            if (OlderThanEighteen.Satisfied(person))
+            foreach ( var rule in _drinkingRules)
             {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (OlderThanFifty.Satisfied(person))
-                    {
-                        return "Whiskey";
-                    }
-                    else
-                    {
-                        return "Beer";
-                    }
-                }
-                else
-                {
-                    if (OlderThanThirty.Satisfied(person))
-                    {
-                         if (OlderThanFifty.Satisfied(person))
-                         {
-                             return "Wine";
-                         }
-                         else
-                         {
-                             return "Beer";
-                         }                   
-                    }
-                    else
-                    {
-                        return "Wine";
-                    }
-                }
+                if (rule.Predicate(person)) return rule.Drink;
             }
-            else
-            {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Apple juice";
-                    }
-                    else
-                    {
-                        return "Coke";
-                    }
-                }
-                else
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Orange juice";
-                    }
-                    else
-                    {
-                        return "Fanta";
-                    }
-                }
-            }
+            return "Water! :'(";
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Decision.Core
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public int Age { get; set; }
-        public bool HasADHD { get; set; }
+        public bool HasAdhd{ get; set; }
     }
 }
