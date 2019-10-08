@@ -7,12 +7,12 @@ namespace Decision.Core.Specifications
     {
         EighteenOrOlder = 1,
         ThirtyOrOlder = 3,
-        FiftyOrOlder = 7,
+        FiftyOrOlder = 5,
         HasAdhd = 8,
         Male = 16,
     }
-    
-    public enum  DrinkType
+
+    public enum DrinkType
     {
         Fanta = 0,
         OrangeJuice = PersonState.HasAdhd,
