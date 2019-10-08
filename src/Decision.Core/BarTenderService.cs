@@ -1,3 +1,4 @@
+using Decision.Core.Extensions;
 using Decision.Core.Specifications;
 
 namespace Decision.Core
@@ -6,66 +7,26 @@ namespace Decision.Core
     {
         public string ServeDrink(Person person)
         {
-            //if(OlderThanFifty.Satisfied(person)) => bit + X64;
+            PersonState personType = 0;
 
+            if (person.IsEighteenOrOlder())
+                personType = PersonState.EighteenOrOlder;
 
-            if (OlderThanEighteen.Satisfied(person))
-            {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (OlderThanFifty.Satisfied(person))
-                    {
-                        return "Whiskey";
-                    }
-                    else
-                    {
-                        return "Beer";
-                    }
-                }
-                else
-                {
-                    if (OlderThanThirty.Satisfied(person))
-                    {
-                         if (OlderThanFifty.Satisfied(person))
-                         {
-                             return "Wine";
-                         }
-                         else
-                         {
-                             return "Beer";
-                         }
-                    }
-                    else
-                    {
-                        return "Wine";
-                    }
-                }
-            }
-            else
-            {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Apple juice";
-                    }
-                    else
-                    {
-                        return "Coke";
-                    }
-                }
-                else
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Orange juice";
-                    }
-                    else
-                    {
-                        return "Fanta";
-                    }
-                }
-            }
+            if (person.IsThirtyOrOlder())
+                personType = PersonState.ThirtyOrOlder;
+
+            if (person.IsFiftyOrOlder())
+                personType = PersonState.FiftyOrOlder;
+
+            if (person.IsMale())
+                personType |= PersonState.Male;
+
+            if (person.HasAdhdDisorder())
+                personType |= PersonState.HasAdhd;
+
+            DrinkType type = (DrinkType) personType;
+
+            return type.ToString();
         }
     }
 }
