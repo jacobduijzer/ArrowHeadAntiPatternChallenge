@@ -6,63 +6,44 @@ namespace Decision.Core
     {
         public string ServeDrink(Person person)
         {
-            if (OlderThanEighteen.Satisfied(person))
+            if (new OlderThanEighteen().And(new GenderIsMale()).And(new OlderThanFifty()).IsSatisfied(person))
             {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (OlderThanFifty.Satisfied(person))
-                    {
-                        return "Whiskey";
-                    }
-                    else
-                    {
-                        return "Beer";
-                    }
-                }
-                else
-                {
-                    if (YoungerThanThirty.Satisfied(person))
-                    {
-                        return "Wine";
-                    }
-                    else
-                    {
-                        if (OlderThanFifty.Satisfied(person))
-                        {
-                            return "Wine";
-                        }
-                        else
-                        {
-                            return "Beer";
-                        }
-                    }
-                }
+                return "Whiskey";
             }
-            else
+            else if (new OlderThanEighteen().And(new GenderIsMale()).AndNot(new OlderThanFifty()).IsSatisfied(person))
             {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Apple juice";
-                    }
-                    else
-                    {
-                        return "Coke";
-                    }
-                }
-                else
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Orange juice";
-                    }
-                    else
-                    {
-                        return "Fanta";
-                    }
-                }
+                return "Beer";
             }
+            else if (new OlderThanEighteen().AndNot(new GenderIsMale()).And(new OlderThanThirty()).And(new OlderThanFifty()).IsSatisfied(person))
+            {
+                return "Wine";
+            }
+            else if (new OlderThanEighteen().AndNot(new GenderIsMale()).And(new OlderThanThirty()).AndNot(new OlderThanFifty()).IsSatisfied(person))
+            {
+                return "Beer";
+            }
+            else if (new OlderThanEighteen().AndNot(new GenderIsMale()).AndNot(new OlderThanThirty()).IsSatisfied(person))
+            {
+                return "Wine";
+            }
+            else if (!new OlderThanEighteen().IsSatisfied(person) && new GenderIsMale().And(new HasADHD()).IsSatisfied(person))
+            {
+                return "Apple juice";
+            }
+            else if (!new OlderThanEighteen().IsSatisfied(person) && new GenderIsMale().AndNot(new HasADHD()).IsSatisfied(person))
+            {
+                return "Coke";
+            }
+            else if (!new OlderThanEighteen().IsSatisfied(person) && !new GenderIsMale().IsSatisfied(person) && new HasADHD().IsSatisfied(person))
+            {
+                return "Orange juice";
+            }
+            else if (!new OlderThanEighteen().IsSatisfied(person) && !new GenderIsMale().IsSatisfied(person) && !new HasADHD().IsSatisfied(person))
+            {
+                return "Fanta";
+            }
+
+            return "Unknown";
         }
     }
 }
