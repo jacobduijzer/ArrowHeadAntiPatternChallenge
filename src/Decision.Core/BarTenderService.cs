@@ -6,6 +6,9 @@ namespace Decision.Core
     {
         public string ServeDrink(Person person)
         {
+            //if(OlderThanFifty.Satisfied(person)) => bit + X64;
+
+
             if (OlderThanEighteen.Satisfied(person))
             {
                 if (GenderIsMale.Satisfied(person))
@@ -30,7 +33,7 @@ namespace Decision.Core
                          else
                          {
                              return "Beer";
-                         }                   
+                         }
                     }
                     else
                     {
