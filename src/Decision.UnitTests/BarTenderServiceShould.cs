@@ -9,7 +9,7 @@ namespace Decision.UnitTests
         private readonly BarTenderService _service;
 
         public BarTenderServiceShould() =>
-            _service = new BarTenderService();
+            _service = new BarTenderService(DrinkingRules.Rules);
 
         [Fact]
         public void Construct() =>
@@ -17,15 +17,15 @@ namespace Decision.UnitTests
 
         [Theory]
         [InlineData(Gender.Male, 10, false, "Coke")]
-        [InlineData(Gender.Male, 10, true, "AppleJuice")]
+        [InlineData(Gender.Male, 10, true, "Apple juice")]
         [InlineData(Gender.Male, 18, false, "Beer")]
         [InlineData(Gender.Male, 40, false, "Beer")]
         [InlineData(Gender.Male, 60, false, "Whiskey")]
         [InlineData(Gender.Female, 10, false, "Fanta")]
-        [InlineData(Gender.Female, 10, true, "OrangeJuice")]
-        [InlineData(Gender.Female, 18, false, "SweetWhiteWine")]
-        [InlineData(Gender.Female, 31, false, "FruitBeer")]
-        [InlineData(Gender.Female, 55, false, "RedWine")]
+        [InlineData(Gender.Female, 10, true, "Orange juice")]
+        [InlineData(Gender.Female, 18, false, "Wine")]
+        [InlineData(Gender.Female, 31, false, "Beer")]
+        [InlineData(Gender.Female, 55, false, "Wine")]
         public void ServeProperDrink(Gender gender, int age, bool hasAdhd, string expectedDrink) =>
             _service.ServeDrink(new Person { Age = age, Gender = gender, HasADHD = hasAdhd })
                 .Should().Be(expectedDrink);
