@@ -10,6 +10,6 @@ namespace Decision.Core.Extensions
 
         public static bool IsMale(this Person person) => person.Gender == Gender.Male;
 
-        public static bool HasAdhdDisorder(this Person person) => person.HasADHD;
+        public static bool HasAdhdDisorder(this Person person) => person.HasAdhd;
     }
 }
