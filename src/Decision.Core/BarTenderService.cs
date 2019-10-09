@@ -6,63 +6,21 @@ namespace Decision.Core
     {
         public string ServeDrink(Person person)
         {
-            if (OlderThanEighteen.Satisfied(person))
-            {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (OlderThanFifty.Satisfied(person))
-                    {
-                        return "Whiskey";
-                    }
-                    else
-                    {
-                        return "Beer";
-                    }
-                }
-                else
-                {
-                    if (OlderThanThirty.Satisfied(person))
-                    {
-                         if (OlderThanFifty.Satisfied(person))
-                         {
-                             return "Wine";
-                         }
-                         else
-                         {
-                             return "Beer";
-                         }                   
-                    }
-                    else
-                    {
-                        return "Wine";
-                    }
-                }
+            // Using guard statements
+            var female = !GenderIsMale.Satisfied(person);
+
+            if (HasADHD.Satisfied(person)) {
+                return $"{female ? "Orange" : "Apple"} juice";
             }
-            else
-            {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Apple juice";
-                    }
-                    else
-                    {
-                        return "Coke";
-                    }
-                }
-                else
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Orange juice";
-                    }
-                    else
-                    {
-                        return "Fanta";
-                    }
-                }
+
+            if (!OlderThanEighteen.Satisfied(person)) {
+                return female ? "Fanta" : "Coke";
             }
+
+            if (OlderThanFifty.Satisfied(person)) {
+                return female ? "Wine" : "Whiskey";
+            }
+            return female && !OlderThanThirty.Satisfied(person) ? "Wine" : "Beer";
         }
     }
 }
