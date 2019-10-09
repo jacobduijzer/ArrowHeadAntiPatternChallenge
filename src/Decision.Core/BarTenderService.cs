@@ -1,68 +1,21 @@
-using Decision.Core.Specifications;
+using System.Collections.Generic;
+using Decision.Core.Models;
 
 namespace Decision.Core
 {
     public class BarTenderService
     {
+        private readonly ICollection<Spec<Person, string>> _flows;
+
+        public BarTenderService(ICollection<Spec<Person, string>> flows) =>
+            _flows = flows;
+
         public string ServeDrink(Person person)
         {
-            if (OlderThanEighteen.Satisfied(person))
-            {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (OlderThanFifty.Satisfied(person))
-                    {
-                        return "Whiskey";
-                    }
-                    else
-                    {
-                        return "Beer";
-                    }
-                }
-                else
-                {
-                    if (OlderThanThirty.Satisfied(person))
-                    {
-                         if (OlderThanFifty.Satisfied(person))
-                         {
-                             return "Wine";
-                         }
-                         else
-                         {
-                             return "Beer";
-                         }                   
-                    }
-                    else
-                    {
-                        return "Wine";
-                    }
-                }
-            }
-            else
-            {
-                if (GenderIsMale.Satisfied(person))
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Apple juice";
-                    }
-                    else
-                    {
-                        return "Coke";
-                    }
-                }
-                else
-                {
-                    if (HasADHD.Satisfied(person))
-                    {
-                        return "Orange juice";
-                    }
-                    else
-                    {
-                        return "Fanta";
-                    }
-                }
-            }
+            foreach ( var rule in _flows)
+                if (rule.Satisfies(person)) return rule.Result;
+
+            return "Water! :'(";
         }
     }
 }

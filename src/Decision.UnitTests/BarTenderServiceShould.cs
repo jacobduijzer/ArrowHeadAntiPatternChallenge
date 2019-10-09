@@ -1,4 +1,5 @@
 using Decision.Core;
+using Decision.Core.Models;
 using FluentAssertions;
 using Xunit;
 
@@ -9,8 +10,8 @@ namespace Decision.UnitTests
         private readonly BarTenderService _service;
 
         public BarTenderServiceShould() =>
-            _service = new BarTenderService();
-        
+            _service = new BarTenderService(Flows.Items);
+
         [Fact]
         public void Construct() =>
             _service.Should().BeOfType<BarTenderService>();
@@ -27,7 +28,7 @@ namespace Decision.UnitTests
         [InlineData(Gender.Female, 31, false, "Beer")]
         [InlineData(Gender.Female, 55, false, "Wine")]
         public void ServeProperDrink(Gender gender, int age, bool hasAdhd, string expectedDrink) =>
-            _service.ServeDrink(new Person { Age = age, Gender = gender, HasADHD = hasAdhd })
+            _service.ServeDrink(new Person { Age = age, Gender = gender, HasAdhd = hasAdhd })
                 .Should().Be(expectedDrink);
     }
 }
