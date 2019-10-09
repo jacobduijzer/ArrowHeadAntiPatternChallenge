@@ -1,16 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Diagnostics;
+using Bogus;
 using Decision.Core;
 using Decision.Core.Models;
 using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
+using Person = Decision.Core.Models.Person;
 
 namespace Decision.UnitTests
 {
     public class BarTenderServiceShould
     {
+        private readonly ITestOutputHelper _output;
         private readonly BarTenderService _service;
 
-        public BarTenderServiceShould() =>
+        public BarTenderServiceShould(ITestOutputHelper output)
+        {
+            _output = output;
             _service = new BarTenderService(Flows.Items);
+        }
 
         [Fact]
         public void Construct() =>
@@ -30,5 +41,35 @@ namespace Decision.UnitTests
         public void ServeProperDrink(Gender gender, int age, bool hasAdhd, string expectedDrink) =>
             _service.ServeDrink(new Person { Age = age, Gender = gender, HasAdhd = hasAdhd })
                 .Should().Be(expectedDrink);
+
+        [Fact]
+        public void Perform()
+        {
+            var people = new Faker<Person>()
+                .RuleFor(x => x.Age, (faker, person) => faker.Random.Int(4, 90))
+                .RuleFor(x => x.FirstName, (faker, person) => faker.Person.FirstName)
+                .RuleFor(x => x.LastName, (faker, person) => faker.Person.LastName)
+                .RuleFor(x => x.Gender, (faker, person) => faker.PickRandom(Gender.Female, Gender.Male))
+                .RuleFor(x => x.HasAdhd, (faker, person) => faker.PickRandom(true, false))
+                .Generate(1000000);
+
+            Stopwatch sw = new Stopwatch();
+            Dictionary<string, int> record = new Dictionary<string, int>();
+            sw.Start();
+            people.ForEach(person =>
+            {
+                var result = _service.ServeDrink(person);
+                if (record.ContainsKey(result))
+                    record[result]++;
+                else
+                    record[result] = 1;
+            });
+
+            sw.Stop();
+            _output.WriteLine($"Elapsed={sw.Elapsed}");
+
+            foreach (var keyValuePair in record)
+                _output.WriteLine($"{keyValuePair.Key}: {keyValuePair.Value}");
+        }
     }
 }
