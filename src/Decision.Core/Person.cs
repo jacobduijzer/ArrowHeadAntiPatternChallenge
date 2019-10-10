@@ -1,4 +1,4 @@
-namespace Decision.Core.Models
+namespace Decision.Core
 {
     public class Person
     {

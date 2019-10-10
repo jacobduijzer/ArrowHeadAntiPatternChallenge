@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using Decision.Core.Models;
 
 namespace Decision.Core
 {
-    public static class Flows
+    public static class DrinkingRules
     {
-        public static IList<Spec<Person, string>> Items => new List<Spec<Person, string>>
+        public static IList<Spec<Person, string>> Rules => new List<Spec<Person, string>>
         {
             FantaFlow,
             OrangeJuiceFlow,

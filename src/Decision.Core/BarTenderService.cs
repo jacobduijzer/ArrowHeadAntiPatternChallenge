@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Decision.Core.Models;
 
 namespace Decision.Core
 {

@@ -1,5 +1,4 @@
 using System;
-using Decision.Core.Models;
 
 namespace Decision.Core
 {
