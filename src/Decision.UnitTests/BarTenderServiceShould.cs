@@ -10,7 +10,7 @@ namespace Decision.UnitTests
 
         public BarTenderServiceShould() =>
             _service = new BarTenderService();
-        
+
         [Fact]
         public void Construct() =>
             _service.Should().BeOfType<BarTenderService>();
@@ -19,13 +19,19 @@ namespace Decision.UnitTests
         [InlineData(Gender.Male, 10, false, "Coke")]
         [InlineData(Gender.Male, 10, true, "Apple juice")]
         [InlineData(Gender.Male, 18, false, "Beer")]
+        [InlineData(Gender.Male, 18, true, "Beer")]
         [InlineData(Gender.Male, 40, false, "Beer")]
+        [InlineData(Gender.Male, 40, true, "Beer")]
         [InlineData(Gender.Male, 60, false, "Whiskey")]
+        [InlineData(Gender.Male, 60, true, "Whiskey")]
         [InlineData(Gender.Female, 10, false, "Fanta")]
         [InlineData(Gender.Female, 10, true, "Orange juice")]
         [InlineData(Gender.Female, 18, false, "Wine")]
+        [InlineData(Gender.Female, 18, true, "Wine")]
         [InlineData(Gender.Female, 31, false, "Beer")]
+        [InlineData(Gender.Female, 31, true, "Beer")]
         [InlineData(Gender.Female, 55, false, "Wine")]
+        [InlineData(Gender.Female, 55, true, "Wine")]
         public void ServeProperDrink(Gender gender, int age, bool hasAdhd, string expectedDrink) =>
             _service.ServeDrink(new Person { Age = age, Gender = gender, HasADHD = hasAdhd })
                 .Should().Be(expectedDrink);
