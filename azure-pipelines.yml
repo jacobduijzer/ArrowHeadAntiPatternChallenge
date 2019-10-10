@@ -24,6 +24,7 @@ steps:
   inputs:
     command: 'build'
     projects: 'Decision.sln'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
