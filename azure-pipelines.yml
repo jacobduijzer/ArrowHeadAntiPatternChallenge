@@ -28,5 +28,5 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: 'Decision.sln'
+    projects: '**/*[Tt]ests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --no-build --logger:trx /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura" /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"'
