@@ -5,8 +5,7 @@ namespace Decision.Core.Validations
 {
     public interface IValidation<T>
     {
-        Expression<Func<T, bool>> Rule { get; }
-
+        Predicate<T> Predicate { get; }
         bool Validate(T item);
     }
 }

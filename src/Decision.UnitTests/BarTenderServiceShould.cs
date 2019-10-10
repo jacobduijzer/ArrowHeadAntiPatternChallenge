@@ -9,7 +9,7 @@ namespace Decision.UnitTests
         private readonly BarTenderService _service;
 
         public BarTenderServiceShould() =>
-            _service = new BarTenderService(DrinkingRules.Init().Rules);
+            _service = new BarTenderService(DrinkingRules.Rules);
 
         [Fact]
         public void Construct() =>

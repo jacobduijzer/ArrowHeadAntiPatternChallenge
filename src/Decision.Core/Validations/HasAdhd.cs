@@ -5,6 +5,6 @@ namespace Decision.Core.Validations
 {
     public class HasAdhd : AbstractValidation<Person>
     {
-        public override Expression<Func<Person, bool>> Rule => person => person.HasAdhd;
+        public override Predicate<Person> Predicate => person => person.HasAdhd;
     }
 }

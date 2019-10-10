@@ -3,28 +3,21 @@ using Decision.Core.Rules;
 
 namespace Decision.Core
 {
-    public class DrinkingRules
+    public static class DrinkingRules
     {
-        public readonly List<IRule<Person>> Rules;
-
-        private DrinkingRules() => Rules = new List<IRule<Person>>();
-
-        public static DrinkingRules Init()
-        {
-            var rules = new DrinkingRules();
-            rules.Rules.AddRange(new List<IRule<Person>>
+        public static IList<IRule<Person>> Rules =>
+            new List<IRule<Person>>
             {
                 new FantaRule(),
                 new OrangeJuiceRule(),
                 new CokeRule(),
+                new AppleJuiceRule(),
                 new SweetWiteWine(),
                 new MaleBeerRule(),
                 new RedWineRule(),
-                new FemaleBeerRule()
-            });
-
-            return rules;
-        }
+                new FemaleBeerRule(),
+                new WhiskeyRule()
+            };
     }
 }
 

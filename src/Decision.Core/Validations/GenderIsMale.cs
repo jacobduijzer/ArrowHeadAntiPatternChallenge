@@ -5,6 +5,6 @@ namespace Decision.Core.Validations
 {
     public class GenderIsMale : AbstractValidation<Person>
     {
-        public override Expression<Func<Person, bool>> Rule => person => person.Gender == Gender.Male;
+        public override Predicate<Person> Predicate => person => person.Gender == Gender.Male;
     }
 }
