@@ -10,29 +10,34 @@ pool:
 
 steps:
 - task: UseDotNet@2
+  displayName: 'Install .NET Core 3.0.100 SDK'
   inputs:
     packageType: 'sdk'
     version: '3.0.100'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Restore'
   inputs:
     command: 'restore'
     projects: 'Decision.sln'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build'
   inputs:
     command: 'build'
     projects: 'Decision.sln'
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Test'
   inputs:
     command: 'test'
     projects: '**/*[Tt]ests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --no-build --logger:trx /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura" /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"'
 
 - task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage results'
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '**/coverage.cobertura.xml'
